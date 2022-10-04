@@ -2,7 +2,7 @@ package org.goldgame.clan.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.goldgame.clan.model.Clan;
+import org.goldgame.clan.dto.ClanDto;
 import org.goldgame.exception.ValidationException;
 import org.goldgame.clan.repository.ClanRepository;
 import org.goldgame.utilities.SqlSetup;
@@ -17,7 +17,7 @@ public class ClanService {
 
     private final ClanRepository clanRepository;
 
-    public void create(Clan clanDto) {
+    public void create(ClanDto clanDto) {
         if (clanDto.getName() == null) {
             throw new ValidationException("Name can't be empty");
         }
@@ -30,10 +30,10 @@ public class ClanService {
         }
     }
 
-    public Clan update(Clan clanDto) {
-        Clan clan = null;
+    public ClanDto update(Long id, ClanDto clanDto) {
+        ClanDto clan = null;
         try {
-           clan = clanRepository.update(clanDto);
+           clan = clanRepository.update(id, clanDto);
         } catch (SQLException e) {
             SqlSetup.logSqlError(e);
         }
@@ -48,8 +48,8 @@ public class ClanService {
         }
     }
 
-    public Clan getClan(Long id) {
-        Clan clan = null;
+    public ClanDto getClan(Long id) {
+        ClanDto clan = null;
         try {
             clan = clanRepository.getClan(id);
         } catch (SQLException e) {
@@ -58,8 +58,8 @@ public class ClanService {
         return clan;
     }
 
-    public List<Clan> getAll() {
-        List<Clan> clans = new ArrayList<>();
+    public List<ClanDto> getAll() {
+        List<ClanDto> clans = new ArrayList<>();
         try {
             clans = clanRepository.getAll();
         } catch (SQLException e) {

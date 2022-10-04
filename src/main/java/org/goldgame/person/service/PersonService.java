@@ -2,7 +2,7 @@ package org.goldgame.person.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.goldgame.person.model.Person;
+import org.goldgame.person.dto.PersonDto;
 import org.goldgame.person.repository.PersonRepository;
 import org.goldgame.utilities.SqlSetup;
 
@@ -16,7 +16,7 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
-    public void create(Person personDto) {
+    public void create(PersonDto personDto) {
         try {
             personRepository.create(personDto);
         } catch (SQLException e) {
@@ -24,10 +24,10 @@ public class PersonService {
         }
     }
 
-    public Person update(Person personDto) {
-        Person person = personDto;
+    public PersonDto update(Long id, PersonDto personDto) {
+        PersonDto person = personDto;
         try {
-            person = personRepository.update(personDto);
+            person = personRepository.update(id, personDto);
         } catch (SQLException e) {
             SqlSetup.logSqlError(e);
         }
@@ -42,8 +42,8 @@ public class PersonService {
         }
     }
 
-    public Person getPerson(Long id) {
-        Person person = null;
+    public PersonDto getPerson(Long id) {
+        PersonDto person = null;
         try {
             person = personRepository.getPerson(id);
         } catch (SQLException e) {
@@ -52,13 +52,21 @@ public class PersonService {
         return person;
     }
 
-    public List<Person> getAll() {
-        List<Person> persons = new ArrayList<>();
+    public List<PersonDto> getAll() {
+        List<PersonDto> persons = new ArrayList<>();
         try {
             persons = personRepository.getAll();
         } catch (SQLException e) {
             SqlSetup.logSqlError(e);
         }
         return persons;
+    }
+
+    public void joinClan(Long clanId, Long personId) {
+        try {
+            personRepository.joinClan(clanId, personId);
+        } catch (SQLException e) {
+            SqlSetup.logSqlError(e);
+        }
     }
 }

@@ -1,13 +1,16 @@
-package org.goldgame.person.model;
+package org.goldgame.clan.dto;
 
 import lombok.*;
+import org.goldgame.person.dto.PersonDto;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Getter @Setter @ToString
-public class Person {
-    private Long id;
+public class ClanDto {
     private String name;
     private Long gold;
+    private List<PersonDto> population;
 }

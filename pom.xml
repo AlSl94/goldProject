@@ -57,6 +57,12 @@
         </dependency>
 
         <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.214</version>
@@ -70,7 +76,6 @@
             <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
