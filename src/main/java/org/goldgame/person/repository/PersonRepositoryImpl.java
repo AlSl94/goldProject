@@ -1,6 +1,7 @@
 package org.goldgame.person.repository;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.dbutils.GenerousBeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -67,16 +68,20 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public PersonDto getPerson(Long id) throws SQLException {
         try (Connection conn = SqlSetup.createConnection()) {
-            String query = "SELECT p.name, p.GOLD FROM persons p WHERE ID = ?";
-            BeanHandler<PersonDto> beanHandler = new BeanHandler<>(PersonDto.class);
-            return qr.query(conn, query, beanHandler, id);
+            String query = "SELECT p.NAME, p.GOLD, c.NAME AS clanName FROM PERSONS p " +
+                    "LEFT JOIN CLAN_PERSON cp ON cp.PERSON_ID = p.ID " +
+                    "LEFT JOIN CLANS c ON c.ID = cp.CLAN_ID " +
+                    "WHERE p.ID = ?";
+            return qr.query(conn, query, new BeanHandler<>(PersonDto.class), id);
         }
     }
 
     @Override
     public List<PersonDto> getAll() throws SQLException {
         try (Connection conn = SqlSetup.createConnection()) {
-            String query = "SELECT p.name, p.gold FROM PERSONS p";
+            String query = "SELECT p.NAME, p.GOLD, c.NAME AS clanName FROM PERSONS p " +
+                    "LEFT JOIN CLAN_PERSON cp ON cp.PERSON_ID = p.ID " +
+                    "LEFT JOIN CLANS c ON c.ID = cp.CLAN_ID;";
             BeanListHandler<PersonDto> beanListHandler = new BeanListHandler<>(PersonDto.class);
             return qr.query(conn, query, beanListHandler);
         }

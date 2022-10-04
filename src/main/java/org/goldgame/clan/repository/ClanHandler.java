@@ -13,7 +13,6 @@ import java.util.List;
 public class ClanHandler extends BeanListHandler<Clan> {
 
     private Connection connection;
-
     public ClanHandler(Connection con) {
         super(Clan.class);
         this.connection = con;
@@ -26,7 +25,7 @@ public class ClanHandler extends BeanListHandler<Clan> {
 
         BeanListHandler<Person> handler = new BeanListHandler<>(Person.class);
 
-        String query = "SELECT p.name, p.gold FROM persons p WHERE p.clan_id = ?";
+        String query = "SELECT * FROM persons p WHERE p.ID = ?";
 
         for (Clan clan : clans) {
             List<Person> persons

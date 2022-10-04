@@ -16,8 +16,8 @@ public class SqlSetup {
 
     private static final String SCRIPT = ";INIT=RUNSCRIPT FROM 'classpath:/script.sql'";
     private static final String JDBC_DRIVER = "org.h2.Driver";
-    private static final String DB_URL = "jdbc:h2:mem:./db/gold_game;DB_CLOSE_DELAY=-1" + SCRIPT; // inMemory
-    //private static final String DB_URL = "jdbc:h2:file:./db/gold_game" + SCRIPT; // embedded
+    //private static final String DB_URL = "jdbc:h2:mem:./db/gold_game;DB_CLOSE_DELAY=-1" + SCRIPT; // inMemory
+    private static final String DB_URL = "jdbc:h2:file:./db/gold_game" + SCRIPT; // embedded
     private static final String USER = "test";
     private static final String PASS = "test";
 

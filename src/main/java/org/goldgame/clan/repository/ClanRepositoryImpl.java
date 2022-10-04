@@ -5,7 +5,9 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.goldgame.clan.ClanMapper;
 import org.goldgame.clan.dto.ClanDto;
+import org.goldgame.clan.model.Clan;
 import org.goldgame.exception.ValidationException;
 import org.goldgame.utilities.SqlSetup;
 
@@ -68,9 +70,9 @@ public class ClanRepositoryImpl implements ClanRepository {
     public List<ClanDto> getAll() throws SQLException {
         try (Connection conn = SqlSetup.createConnection()) {
             String query = "SELECT c.name, c.gold FROM CLANS c";
-            BeanListHandler<ClanDto> beanListHandler = new BeanListHandler<>(ClanDto.class);
-            return qr.query(conn, query, beanListHandler);
+            BeanListHandler<Clan> beanHandler = new ClanHandler(conn);
+            List<Clan> clans = qr.query(conn, query, beanHandler);
+            return ClanMapper.toClanDtoList(clans);
         }
     }
 }
-
