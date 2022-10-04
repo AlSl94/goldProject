@@ -1,4 +1,4 @@
-package org.goldgame.repository;
+package org.goldgame.clan.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.QueryRunner;
@@ -6,7 +6,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.goldgame.exception.ValidationException;
-import org.goldgame.model.Clan;
+import org.goldgame.clan.model.Clan;
 import org.goldgame.utilities.SqlSetup;
 
 import java.sql.Connection;

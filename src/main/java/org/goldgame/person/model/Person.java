@@ -1,4 +1,4 @@
-package org.goldgame.model;
+package org.goldgame.person.model;
 
 import lombok.*;
 

@@ -1,10 +1,10 @@
-package org.goldgame.service;
+package org.goldgame.clan.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.goldgame.model.Clan;
+import org.goldgame.clan.model.Clan;
 import org.goldgame.exception.ValidationException;
-import org.goldgame.repository.ClanRepository;
+import org.goldgame.clan.repository.ClanRepository;
 import org.goldgame.utilities.SqlSetup;
 
 import java.sql.SQLException;

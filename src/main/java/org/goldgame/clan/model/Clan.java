@@ -1,6 +1,7 @@
-package org.goldgame.model;
+package org.goldgame.clan.model;
 
 import lombok.*;
+import org.goldgame.person.model.Person;
 
 import java.util.List;
 

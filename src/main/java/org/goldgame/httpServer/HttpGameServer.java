@@ -5,9 +5,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import lombok.extern.slf4j.Slf4j;
-import org.goldgame.model.Clan;
-import org.goldgame.repository.ClanRepositoryImpl;
-import org.goldgame.service.ClanService;
+import org.goldgame.clan.model.Clan;
+import org.goldgame.clan.repository.ClanRepositoryImpl;
+import org.goldgame.clan.service.ClanService;
 import org.goldgame.utilities.Config;
 
 import java.io.IOException;

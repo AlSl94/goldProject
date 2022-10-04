@@ -1,7 +1,7 @@
-package org.goldgame.repository;
+package org.goldgame.clan.repository;
 
 
-import org.goldgame.model.Clan;
+import org.goldgame.clan.model.Clan;
 
 import java.sql.SQLException;
 import java.util.List;
