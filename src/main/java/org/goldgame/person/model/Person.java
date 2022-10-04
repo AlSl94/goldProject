@@ -11,4 +11,5 @@ import lombok.*;
 public class Person {
     private Long id;
     private String name;
+    private Long gold;
 }
