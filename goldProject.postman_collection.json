@@ -1,0 +1,1141 @@
+{
+  "info": {
+    "_postman_id": "986d5a3b-c769-407d-8143-1ca3b32bb11c",
+    "name": "goldProject",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21327957"
+  },
+  "item": [
+    {
+      "name": "Get Hello Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/hello",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "hello"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Clan",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"BigHands\",\n  \"gold\": \"15000\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/clans",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Clan 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"BigFeets\",\n  \"gold\": \"999\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/clans",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get clan by id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.eql('BigHands');",
+              "    pm.expect(jsonData.gold).to.equal(15000)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all clans",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get all\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.length, 'items count in total').to.eql(2);",
+              "    pm.expect(jsonData[0].name).to.eql('BigHands');",
+              "    pm.expect(jsonData[0].gold).to.equal(15000)",
+              "    pm.expect(jsonData[1].name).to.eql('BigFeets');",
+              "    pm.expect(jsonData[1].gold).to.equal(999)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get clan by wrong id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([404]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=100",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update clan name",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"UpdatedBigHands\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get updated clan",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.eql('UpdatedBigHands');",
+              "    pm.expect(jsonData.gold).to.equal(15000)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Clan Free Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"BigHands\",\n  \"gold\": \"15000\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/clans",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete clan",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all clans after delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get all\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.length, 'items count in total').to.eql(2);",
+              "    pm.expect(jsonData[0].name).to.eql('BigFeets');",
+              "    pm.expect(jsonData[0].gold).to.equal(999)",
+              "    pm.expect(jsonData[1].name).to.eql('BigHands');",
+              "    pm.expect(jsonData[1].gold).to.equal(15000)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Alexander Pushkin\",\n  \"gold\": \"20\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/persons",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Person 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Terry Pratchett\",\n  \"gold\": \"50\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/persons",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.eql('Alexander Pushkin');",
+              "    pm.expect(jsonData.gold).to.equal(20)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": null,
+              "value": "",
+              "disabled": true
+            },
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all persons",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.length, 'items count in total').to.eql(2);",
+              "    pm.expect(jsonData[0].name).to.eql('Alexander Pushkin');",
+              "    pm.expect(jsonData[0].gold).to.equal(20)",
+              "    pm.expect(jsonData[1].name).to.eql('Terry Pratchett');",
+              "    pm.expect(jsonData[1].gold).to.equal(50)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": null,
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Wrong Person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([404]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=100",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": null,
+              "value": "",
+              "disabled": true
+            },
+            {
+              "key": "id",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update person name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Alex Benjamin\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get updated person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.name).to.eql('Alex Benjamin');",
+              "    pm.expect(jsonData.gold).to.equal(20)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": null,
+              "value": "",
+              "disabled": true
+            },
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete person",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all persons after Delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.length, 'items count in total').to.eql(1);",
+              "    pm.expect(jsonData[0].name).to.eql('Terry Pratchett');",
+              "    pm.expect(jsonData[0].gold).to.equal(50)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": null,
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add person to clan",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons/?id=2&clanId=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons",
+            ""
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "2"
+            },
+            {
+              "key": "clanId",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add gold operation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Clan-Id",
+            "value": "2",
+            "type": "text"
+          },
+          {
+            "key": "X-Person-Id",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/gold/?amount=10&isWithdrawal=false",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "gold",
+            ""
+          ],
+          "query": [
+            {
+              "key": "amount",
+              "value": "10"
+            },
+            {
+              "key": "isWithdrawal",
+              "value": "false"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get clan 2 after add gold",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.gold).to.equal(1009)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Person 2 after add gold to clan",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.gold).to.equal(40)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Withdraw gold operation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Clan-Id",
+            "value": "2",
+            "type": "text"
+          },
+          {
+            "key": "X-Person-Id",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/gold/?amount=10&isWithdrawal=true",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "gold",
+            ""
+          ],
+          "query": [
+            {
+              "key": "amount",
+              "value": "10"
+            },
+            {
+              "key": "isWithdrawal",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get clan 2 after gold withdraw",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.gold).to.equal(999)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/clans?id=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "clans"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Person 2 after gold withdraw",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.gold).to.equal(50)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/persons?id=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get gold operation 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200]);",
+              "});",
+              "pm.test(\"Test get clan\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.operationId).to.equal(1)",
+              "    pm.expect(jsonData.clanId).to.equal(2)",
+              "    pm.expect(jsonData.personId).to.equal(2)",
+              "    pm.expect(jsonData.amount).to.equal(10)",
+              "    pm.expect(jsonData.initialGold).to.equal(999)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/gold?id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "gold"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
