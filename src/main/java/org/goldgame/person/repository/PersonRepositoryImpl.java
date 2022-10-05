@@ -1,7 +1,6 @@
 package org.goldgame.person.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.dbutils.GenerousBeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -20,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class PersonRepositoryImpl implements PersonRepository {
 
-    QueryRunner qr = new QueryRunner();
+    private final QueryRunner qr = new QueryRunner();
 
     @Override
     public void create(PersonDto personDto) throws SQLException {

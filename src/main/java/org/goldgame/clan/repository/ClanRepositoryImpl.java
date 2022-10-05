@@ -5,10 +5,9 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.goldgame.clan.ClanMapper;
 import org.goldgame.clan.dto.ClanDto;
-import org.goldgame.clan.model.Clan;
 import org.goldgame.exception.ValidationException;
+import org.goldgame.person.dto.PersonDto;
 import org.goldgame.utilities.SqlSetup;
 
 import java.sql.Connection;
@@ -17,17 +16,25 @@ import java.util.List;
 
 @Slf4j
 public class ClanRepositoryImpl implements ClanRepository {
-    QueryRunner qr = new QueryRunner();
+    private final QueryRunner qr = new QueryRunner();
 
     @Override
     public void create(ClanDto clanDto) throws SQLException {
         try (Connection conn = SqlSetup.createConnection()) {
+
             String checkQuery = "SELECT c.name FROM clans c WHERE c.name = ?"; // Проверка, занято ли имя
-            String checkName = qr.query(conn, checkQuery, new BeanHandler<>(String.class), clanDto.getName());
-            if (checkName != null) {
-                throw new ValidationException("This clan name is already taken");
+            String checkName;
+
+            try {
+                checkName = qr.query(conn, checkQuery, new BeanHandler<>(ClanDto.class), clanDto.getName())
+                        .getName();
+            } catch (NullPointerException e) {
+                checkName = null;
             }
+
+            if (checkName != null) throw new ValidationException("This clan name is already taken");
             if (clanDto.getGold() == null) clanDto.setGold(0L);
+
             String query = "INSERT INTO clans(name, gold) VALUES (?,?)";
             ScalarHandler<Integer> scalarHandler = new ScalarHandler<>();
             qr.insert(conn, query, scalarHandler, clanDto.getName(), clanDto.getGold());
@@ -61,18 +68,26 @@ public class ClanRepositoryImpl implements ClanRepository {
     public ClanDto getClan(Long id) throws SQLException {
         try (Connection conn = SqlSetup.createConnection()) {
             String query = "SELECT c.name, c.GOLD FROM clans c WHERE ID = ?";
-            BeanHandler<ClanDto> beanHandler = new BeanHandler<>(ClanDto.class);
-            return qr.query(conn, query, beanHandler, id);
+            BeanHandler<ClanDto> clanHandler = new BeanHandler<>(ClanDto.class);
+            ClanDto clan = qr.query(conn, query, clanHandler, id);
+            if (clan != null) {
+                String populationQuery = "SELECT p.NAME, p.GOLD FROM PERSONS p " +
+                        "JOIN CLAN_PERSON cp ON cp.PERSON_ID = p.ID " +
+                        "WHERE cp.CLAN_ID = ?";
+                BeanListHandler<PersonDto> personHandler = new BeanListHandler<>(PersonDto.class);
+                List<PersonDto> population = qr.query(conn, populationQuery, personHandler, id);
+                clan.setPopulation(population);
+            }
+            return clan;
         }
     }
 
     @Override
     public List<ClanDto> getAll() throws SQLException {
         try (Connection conn = SqlSetup.createConnection()) {
-            String query = "SELECT c.name, c.gold FROM CLANS c";
-            BeanListHandler<Clan> beanHandler = new ClanHandler(conn);
-            List<Clan> clans = qr.query(conn, query, beanHandler);
-            return ClanMapper.toClanDtoList(clans);
+            String query = "SELECT c.NAME, c.GOLD FROM CLANS c";
+            BeanListHandler<ClanDto> handler = new BeanListHandler<>(ClanDto.class);
+            return qr.query(conn, query, handler);
         }
     }
 }

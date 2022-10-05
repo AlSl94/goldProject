@@ -16,5 +16,6 @@ public class PersonDto {
     @NotEmpty(groups = Create.class)
     String name;
     Long gold;
+    Long clanId;
     String clanName;
 }

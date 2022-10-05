@@ -53,7 +53,8 @@ public class PersonHttpHandler implements HttpHandler {
                         personService.create(person);
                         serverOutput(exchange, 200, gson.toJson("Person created"), "Person created");
                     } else {
-                        serverOutput(exchange, 404, gson.toJson("Wrong request body"), "Name can't be null when creating a person");
+                        serverOutput(exchange, 404, gson.toJson("Wrong request body"),
+                                "Name can't be null when creating a person");
                     }
                 } else if (query.contains("clanId")) {
                     Long personId = Long.parseLong(query.split("=")[1].split("&")[0]);
@@ -66,7 +67,8 @@ public class PersonHttpHandler implements HttpHandler {
             case "PATCH": {
                 InputStream inputStream = exchange.getRequestBody();
                 Long id = Long.parseLong(query.split("=")[1]);
-                PersonDto personDto = gson.fromJson(new String(inputStream.readAllBytes(), Config.DEFAULT_CHARSET), PersonDto.class);
+                PersonDto personDto = gson.fromJson(new String(inputStream.readAllBytes(),
+                        Config.DEFAULT_CHARSET), PersonDto.class);
                 PersonDto person = personService.update(id, personDto);
 
                 if (person == null) {
@@ -74,7 +76,8 @@ public class PersonHttpHandler implements HttpHandler {
                     break;
                 }
 
-                serverOutput(exchange, 200, gson.toJson(person), "Person has been updated " + person.getName());
+                serverOutput(exchange, 200, gson.toJson(person),
+                        "Person has been updated " + person.getName());
                 break;
             }
             case "DELETE": {
@@ -83,11 +86,13 @@ public class PersonHttpHandler implements HttpHandler {
                     serverOutput(exchange, 404, gson.toJson("Wrong request body"), "Wrong id");
                 }
                 personService.delete(id);
-                serverOutput(exchange, 200, gson.toJson("Person with id " + id + " has been deleted"), "Person with id " + id + " has been deleted");
+                serverOutput(exchange, 200, gson.toJson("Person with id " + id + " has been deleted"),
+                        "Person with id " + id + " has been deleted");
                 break;
             }
             default:
-                serverOutput(exchange, 400, gson.toJson("Request must be: POST, GET, DELETE, PATCH"), "Wrong request method " + 400);
+                serverOutput(exchange, 400, gson.toJson("Request must be: POST, GET, DELETE, PATCH"),
+                        "Wrong request method " + 400);
         }
     }
 

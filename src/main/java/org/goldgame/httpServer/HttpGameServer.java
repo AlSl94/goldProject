@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import lombok.extern.slf4j.Slf4j;
 import org.goldgame.clan.handler.ClanHttpHandler;
+import org.goldgame.goldoperation.handler.GoldOperationHttpHandler;
 import org.goldgame.person.handler.PersonHttpHandler;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class HttpGameServer {
         server.createContext("/api/hello", new HelloHandler());
         server.createContext("/clans", new ClanHttpHandler());
         server.createContext("/persons", new PersonHttpHandler());
+        server.createContext("/gold", new GoldOperationHttpHandler());
     }
 
     public void load() {
